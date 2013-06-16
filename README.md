@@ -29,7 +29,7 @@ I wanted to build a distribution from scratch, starting with a system that only 
 
 ### Future Development
 
-I'd like to put together a linux system, combining mucl, clang, linux and some simple programs written in a dynamic programming language. I'll perhaps continue this until I can run nvidia accelerated Wayland compositor/Mir/Xorg and steam on it.
+I'd like to put together a linux system, combining musl, clang, linux and some simple programs written in a dynamic programming language. I'll perhaps continue this until I can run nvidia accelerated Wayland compositor/Mir/Xorg and steam on it.
 
 Ultimately I'd perhaps want a modular linux distribution, that'd be installed with exactly the tools the user wants and needs, and nothing more. Maybe with some subsystem that makes it easier to program well-behaving Linux desktop software independent of the language used.
 
