@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+BASE=$(dirname $0)/..
+LELUX=$BASE/lelux
+pushd $BASE/sources
+./build-busybox
+popd
+
+$BASE/tools/half-build
+
+mkdir -p $LELUX/{dev,proc,sys,var/run}
+
+$BASE/tools/mkinitramfs $LELUX $LELUX.cpio.gz

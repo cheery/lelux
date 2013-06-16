@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+BASE=$(dirname $0)/..
+LELUX=$BASE/lelux
+
+cp $BASE/sources/init $LELUX/init
+cp -r $BASE/etc $LELUX/
+cp -r $BASE/lib $LELUX/
