@@ -22,6 +22,7 @@ sysroot.cpio.gz: sysroot
 
 sysroot: sysroot/lib/libc.so sysroot/bin/busybox sources/init
 	cp sources/init sysroot/init
+	touch $@
 
 sysroot/lib/libc.so: steps/install_cross_compiler
 	mkdir -p sysroot/lib
@@ -41,17 +42,18 @@ steps/install_linux_headers: steps/install_cross_compiler steps/extract-linux-$(
 
 sysroot/bin/busybox: busybox-$(BUSYBOX_VER) steps/install_linux_headers configs/busybox.config
 	cp configs/busybox.config busybox-$(BUSYBOX_VER)/.config
-	echo CONFIG_CROSS_COMPILER_PREFIX="$(TARGET)-" >> busybox-$(BUSYBOX_VER)/.config
-	echo CONFIG_SYSROOT=$(PWD)/sysroot >> busybox-$(BUSYBOX_VER)/.config
-	cd busybox-$(BUSYBOX_VER) && $(MAKE)
+	sed -ri '/CONFIG_CROSS_COMPILER_PREFIX|CONFIG_SYSROOT/d' busybox-$(BUSYBOX_VER)/.config
+	echo CONFIG_CROSS_COMPILER_PREFIX=\"$(TARGET)-\" >> busybox-$(BUSYBOX_VER)/.config
+	echo CONFIG_SYSROOT=\"$(PWD)/sysroot\" >> busybox-$(BUSYBOX_VER)/.config
+	cd busybox-$(BUSYBOX_VER) && $(MAKE) oldconfig && $(MAKE)
 	mkdir -p sysroot/bin
 	cp busybox-$(BUSYBOX_VER)/busybox $@
-	ln -s busybox $(SYSROOT)/bin/ash || true
+	ln -s busybox sysroot/bin/ash || true
 
 steps/compile_kernel: configs/linux.config steps/extract-linux-$(LINUX_VER) steps/install_linux_headers
 	mkdir -p kernel
 	cp configs/linux.config kernel/.config
-	cd linux-$(LINUX_VER) && $(MAKE) mrproper && $(MAKE) O=$(PWD)/kernel ARCH=$(ARCH)
+	cd linux-$(LINUX_VER) && $(MAKE) mrproper && $(MAKE) O=$(PWD)/kernel oldconfig && $(MAKE) O=$(PWD)/kernel ARCH=$(ARCH) 
 	touch $@
 
 busybox-%: sources/busybox-%.tar.bz2
@@ -72,3 +74,5 @@ clean:
 
 nuke: clean
 	rm -rf kernel crosstools
+	rm -rf steps && mkdir steps && touch steps/empty
+	cd musl-cross-make && make distclean
