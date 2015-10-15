@@ -1,8 +1,6 @@
 # Lelux-0.1
 
-Note: Project undergoing a small upgrade. Author has not gotten to update the documentation.
-
-A toy Linux distribution which initializes networking and boots up into a single-user terminal from the initramfs. Works in qemu. Lelux-0.0 has 16? interesting files, excluding the kernel and contents of the virtual filesystems.
+A toy Linux distribution which initializes networking and boots up into a single-user terminal from the initramfs. Works in qemu. Lelux-0.1 has 4 interesting files, excluding the kernel and contents of the virtual filesystem.
 
 Thank [rickfelker](https://github.com/richfelker/) for his work on `musl-cross-make`. Thank you for everyone of you who have worked on projects related to musl, because musl made Lelux a feasible project. Thank [landley](http://landley.net/) for the breadcrumbs.
 
@@ -35,7 +33,7 @@ I tried out several methods to get myself a working cross-compiling toolchain. g
 
 ### Future Development
 
-I'd like to put together a linux system, combining musl, linux and some simple programs written in a dynamic programming language. I'll perhaps continue this until I can run nvidia accelerated Wayland compositor/Mir/Xorg and steam on it.
+I'd like to put together a linux system, combining musl, linux and some simple programs written in a dynamic programming language. I'll perhaps continue this until I can run nvidia accelerated window compositor and steam on it.
 
 Ultimately I'd perhaps want a modular linux distribution, that'd be installed with exactly the tools the user wants and needs, and nothing more. Maybe with some subsystem that makes it easier to program well-behaving Linux desktop software independent of the language used.
 
