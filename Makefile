@@ -17,6 +17,12 @@ enter: all
 		-initrd sysroot.cpio.gz \
 		-kernel kernel/arch/x86_64/boot/bzImage -m 1024M
 
+console: all
+	qemu-system-x86_64 -netdev user,id=nat -device virtio-net-pci,netdev=nat \
+		-initrd sysroot.cpio.gz \
+		-kernel kernel/arch/x86_64/boot/bzImage -m 1024M \
+		-nographic -no-reboot -append "panic=1 console=ttyS0"
+
 sysroot.cpio.gz: sysroot
 	./tools/mkinitramfs $< $@
 
