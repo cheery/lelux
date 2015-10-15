@@ -1,0 +1,10 @@
+crosstools
+kernel
+linux-*/
+musl-cross-make/
+busybox-*/
+sysroot
+steps/
+.*.swp
+sysroot.cpio.gz
+config.mak
