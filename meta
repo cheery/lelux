@@ -1,7 +1,7 @@
 /meta                       short description about every file in the system
 /sys                        stores and allows modification of the devices connected to the system
 /dev                        'essential' devices
-/bin/*                      symbolic links to /bin/busybox, most of these aren't in use
+/bin/*                      symbolic links to /bin/busybox, most of these aren't needed.
 /bin/sh                     symbolic link to linux shell
 /bin/mount                  mounts a filesystem
 /bin/hostname               tells and sets the hostname of the system
@@ -10,24 +10,19 @@
 /bin/getty                  "get teletype" - manages terminals prompts for username and runs /bin/login
 /bin/login                  establishes new sessions with the system
 /etc                        host specific system-wide configuration files
-/etc/resolv.conf            domain name
-/etc/hosts                  maps hostnames to IP addresses
-/etc/nsswitch.conf          Name Service Switch configuration file
+/etc/resolv.conf            Holds configuration for DNS resolver.
+/etc/hosts                  Maps hostnames to IP addresses
 /etc/profile                customizes the shell prompt
 /etc/group                  defines the groups in the linux system
 /etc/passwd                 defines the users in the linux system
 /etc/lelux-version          version of the distribution, helpful for troubleshooting.
 /bin                        'essential' command binaries that need to be available in single user mode
 /sbin                       'essential' system binaries
-/bin/*                      symbolic links to /bin/busybox, most of these unused
-/linuxrc                    symbolic link to /bin/busybox, not used
 /lib                        'essential' system libraries
-/lib/libnss_files.so.2      Name Service Switch library for files
-/lib/libc.so.6              piece of glibc
-/lib/libresolv.so.2         libc-relevant domain name resolver
-/lib/ld-linux-x86-64.so.2   dynamic linker/loader
-/lib/libnss_dns.so.2        Name Service Switch library for dns records
+/lib/libc.so                Standard C library
+/lib/ld-musl-x86_64.so.1    Dynamic linker that links programs into libraries.
 /proc                       provides information about processes and kernel as files
-/init                       the first file executed after the kernel boots up
+/init                       The first file executed after the kernel boots up
+/on-dhcp-event              A custom script that reacts to dhcp events.
 /var                        files that change during the normal operation of the system
 /var/run                    information about the running system since last boot (such as currently logged-in users and running daemons)

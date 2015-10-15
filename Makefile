@@ -15,19 +15,19 @@ all: sysroot.cpio.gz steps/compile_kernel
 enter: all
 	qemu-system-x86_64 -netdev user,id=nat -device virtio-net-pci,netdev=nat \
 		-initrd sysroot.cpio.gz \
-		-kernel kernel/arch/x86_64/boot/bzImage -m 1024M
+		-kernel kernel/arch/x86_64/boot/bzImage -m 1024M $(QEMU_EXTRAS)
 
 console: all
 	qemu-system-x86_64 -netdev user,id=nat -device virtio-net-pci,netdev=nat \
 		-initrd sysroot.cpio.gz \
 		-kernel kernel/arch/x86_64/boot/bzImage -m 1024M \
-		-nographic -no-reboot -append "panic=1 console=ttyS0"
+		-nographic -no-reboot -append "panic=1 console=ttyS0" $(QEMU_EXTRAS)
 
 sysroot.cpio.gz: sysroot
 	./tools/mkinitramfs $< $@
 
-sysroot: sysroot/lib/libc.so sysroot/bin/busybox sources/init
-	cp sources/init sysroot/init
+sysroot: sysroot/lib/libc.so sysroot/bin/busybox sources/init sources/on-dhcp-event
+	cp sources/init sources/on-dhcp-event sysroot/
 	touch $@
 
 sysroot/lib/libc.so: steps/install_cross_compiler
@@ -54,7 +54,7 @@ sysroot/bin/busybox: busybox-$(BUSYBOX_VER) steps/install_linux_headers configs/
 	cd busybox-$(BUSYBOX_VER) && $(MAKE) oldconfig && $(MAKE)
 	mkdir -p sysroot/bin
 	cp busybox-$(BUSYBOX_VER)/busybox $@
-	ln -s busybox sysroot/bin/ash || true
+	ln -s busybox sysroot/bin/sh || true
 
 steps/compile_kernel: configs/linux.config steps/extract-linux-$(LINUX_VER) steps/install_linux_headers
 	mkdir -p kernel
