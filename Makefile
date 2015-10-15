@@ -17,9 +17,11 @@ enter: all
 		-initrd sysroot.cpio.gz \
 		-kernel kernel/arch/x86_64/boot/bzImage -m 1024M
 
-sysroot.cpio.gz: sysroot sysroot/lib/libc.so sysroot/bin/busybox sources/init
-	cp sources/init sysroot/init
+sysroot.cpio.gz: sysroot
 	./tools/mkinitramfs $< $@
+
+sysroot: sysroot/lib/libc.so sysroot/bin/busybox sources/init
+	cp sources/init sysroot/init
 
 sysroot/lib/libc.so: steps/install_cross_compiler
 	mkdir -p sysroot/lib
