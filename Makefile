@@ -44,7 +44,7 @@ sysroot/bin/busybox: busybox-$(BUSYBOX_VER) steps/install_linux_headers configs/
 	cd busybox-$(BUSYBOX_VER) && $(MAKE)
 	mkdir -p sysroot/bin
 	cp busybox-$(BUSYBOX_VER)/busybox $@
-	#ln -s busybox $(SYSROOT)/bin/ash # probably better to symlink this later
+	ln -s busybox $(SYSROOT)/bin/ash || true
 
 steps/compile_kernel: configs/linux.config steps/extract-linux-$(LINUX_VER) steps/install_linux_headers
 	mkdir -p kernel

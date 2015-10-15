@@ -1,5 +1,7 @@
 # Lelux-0.1
 
+Note: Project undergoing a small upgrade. Author has not had time to update the documentation, or test it out on clean repository.
+
 A toy Linux distribution which initializes networking and boots up into a single-user terminal from the initramfs. Works in qemu. Lelux-0.0 has 16? interesting files, excluding the kernel and contents of the virtual filesystems.
 
 Thank [rickfelker](https://github.com/richfelker/) for his work on `musl-cross-make`. Thank you for everyone of you who have worked on projects related to musl, because musl made Lelux a feasible project. Thank [landley](http://landley.net/) for the breadcrumbs.
